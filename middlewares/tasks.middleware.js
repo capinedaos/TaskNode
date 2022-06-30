@@ -5,16 +5,17 @@ const { Task } = require('../models/task.model');
 const { catchAsync } = require('../utils/catchAsync.util');
 const { AppError } = require('../utils/appError.util');
 
-const activeTaskStatus = catchAsync(async (req, res, next) => {
+const taskStatus = catchAsync(async (req, res, next) => {
+  const { status } = req.params;
+  const tasks = await Task.findAll({ where: { status } });
+  const statusValues = ['active', 'completed', 'late', 'cancelled'];
+  const indexStatus = statusValues.indexOf(req.params.status);
 
-  const { id } = req.params;
-  const task = await Task.findOne({ where: { id } });
-  
-  if (task.status !== 'active') {
-    return next(new AppError('Task status is not active', 404));
+  if (indexStatus === -1) {
+    return next(new AppError('Undefined state', 404));
   }
 
-  req.task = task;
+  req.tasks = tasks;
   next();
 });
 
@@ -29,4 +30,4 @@ const taskExistsById = catchAsync(async (req, res, next) => {
   next();
 });
 
-module.exports = { activeTaskStatus, taskExistsById };
+module.exports = { taskStatus, taskExistsById };

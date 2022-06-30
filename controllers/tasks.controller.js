@@ -14,8 +14,7 @@ const getAllTask = catchAsync(async (req, res, next) => {
 });
 
 const getTaskByStatus = catchAsync(async (req, res, next) => {
-  const { status } = req.params;
-  const tasks = await Task.findAll({ where: { status } });
+  const { tasks } = req;
 
   res.status(200).json({
     status: 'success',
@@ -41,18 +40,19 @@ const createTask = catchAsync(async (req, res, next) => {
 
 const updateTask = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+  const { finishDate } = req.body;
   const task = await Task.findOne({ where: { id } });
-  const finishDated = new Date();
-  const limitDate = task.limitDate;
+  const limitDate = new Date(task.limitDate);
+  const finishDateTask = new Date(finishDate);
 
-  if (finishDated.getTime() - limitDate.getTime() < 0) {
+  if (limitDate > finishDateTask) {
     await task.update({
-      finishDated: finishDated,
-      status: 'complete',
+      finishDate,
+      status: 'completed',
     });
   } else {
     await task.update({
-      finishDated: finishDated,
+      finishDate,
       status: 'late',
     });
   }

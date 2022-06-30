@@ -24,11 +24,10 @@ const Task = db.define(
     startDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      // defaultValue: new Date(),
     },
     finishDate: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: new Date(),
     },
     status: {
@@ -36,8 +35,8 @@ const Task = db.define(
       allowNull: false,
       defaultValue: 'active',
     },
-  }
-  // { timestamps: false }
+  },
+  { timestamps: false }
 );
 
 module.exports = { Task };

@@ -11,8 +11,8 @@ const {
 
 // Middlewares
 const {
-  activeTaskStatus,
   taskExistsById,
+  taskStatus,
 } = require('../middlewares/tasks.middleware');
 
 const {
@@ -22,7 +22,7 @@ const {
 const tasksRouter = express.Router();
 
 tasksRouter.get('/', getAllTask);
-tasksRouter.get('/:status', activeTaskStatus, getTaskByStatus);
+tasksRouter.get('/:status', taskStatus, getTaskByStatus);
 tasksRouter.post('/', createTaskValidators, createTask);
 tasksRouter.patch('/:id', taskExistsById, updateTask);
 tasksRouter.delete('/:id', taskExistsById, deleteTask);
