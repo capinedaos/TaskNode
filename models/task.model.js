@@ -29,7 +29,7 @@ const Task = db.define(
     finishDate: {
       type: DataTypes.DATE,
       allowNull: true,
-      // defaultValue: new Date(),
+      defaultValue: new Date(),
     },
     status: {
       type: DataTypes.STRING,
