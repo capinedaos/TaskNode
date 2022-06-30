@@ -28,7 +28,7 @@ const User = db.define(
       defaultValue: 'active',
     },
   },
-  { timestamps: false }
+  // { timestamps: false }
 );
 
 module.exports = { User };

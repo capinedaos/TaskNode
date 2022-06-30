@@ -36,7 +36,7 @@ const Task = db.define(
       defaultValue: 'active',
     },
   },
-  { timestamps: false }
+  // { timestamps: false }
 );
 
 module.exports = { Task };
