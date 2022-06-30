@@ -28,7 +28,7 @@ const createUserValidators = [
 
 const createTaskValidators = [
   body('title').notEmpty().withMessage('Title cannot be empty'),
-  body('userId').notEmpty().withMessage('userId cannot be empty'),
+  body('userId').notEmpty().isNumeric().withMessage('userId cannot be empty'),
   body('limitDate').notEmpty().withMessage('limitDate cannot be empty'),
   checkResult,
 ];
